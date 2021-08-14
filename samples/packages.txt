@@ -1,7 +1,0 @@
-pip install kafka-python
-pip install python-binance
-pip install minio
-pip install modin[all]
-pip install s3fs
-pip install websocket-client
-pip install requests
