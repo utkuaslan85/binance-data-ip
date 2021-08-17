@@ -1,10 +1,25 @@
 from kafka import KafkaProducer
 from binance import ThreadedWebsocketManager
 import json
+from s3fs.core import S3FileSystem
+
+
+# s3fs client
+s3 = S3FileSystem(
+    anon=False,
+    key='access-key',
+    secret='secret-key',
+    use_ssl=False,
+    client_kwargs={'endpoint_url': 'http://10.152.183.240:9000'})
+
 
 # Binance client
-api_key = "wtqoMQp21dTGKL4qrZeHaxv0UZETf55sHOqaWLgu6wAKfmB3N7hTBPjGoMFpHAv3"
-api_secret = "v1YKCDgI11Tl7czwUUgAfBvDWaZjg12hiN3HTMVen8EqDdZuVJxPiPZ3scKW1pBa"
+with s3.open('repo/binance/binance_cred.txt', 'r') as f:
+    cred = json.loads(f.read())
+api_key = cred["API_KEY"]
+api_secret = cred["SECRET_KEY"]
+client = Client(api_key=api_key, api_secret=api_secret)
+
 
 # Kafka Client
 producer = KafkaProducer(bootstrap_servers=['kafka.kafka.svc.cluster.local:9092'], value_serializer=lambda m: json.dumps(m).encode('ascii'))
