@@ -10,15 +10,14 @@ s3 = S3FileSystem(
     key='access-key',
     secret='secret-key',
     use_ssl=False,
-    client_kwargs={'endpoint_url': 'http://10.152.183.240:9000'})
+    client_kwargs={'endpoint_url': 'http://10.152.183.209:9000'})
 
 
 # Binance client
-with s3.open('repo/binance/binance_cred.txt', 'r') as f:
+with s3.open('repo/params/binance_cred.txt', 'r') as f:
     cred = json.loads(f.read())
 api_key = cred["API_KEY"]
 api_secret = cred["SECRET_KEY"]
-client = Client(api_key=api_key, api_secret=api_secret)
 
 
 # Kafka Client
