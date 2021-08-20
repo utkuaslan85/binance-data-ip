@@ -22,5 +22,6 @@ spec:
            pip install --upgrade pip;
            pip install kafka-python;
            pip install python-binance;
+           pip install s3fs;
            wget http://10.152.183.209:9000/repo/binance/test/wbs-kafka-test.py;
            python wbs-kafka-test.py;
