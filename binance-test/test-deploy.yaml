@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name:  test-dev
+  namespace: binance-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-dev
+  template:
+    metadata:
+      labels:
+        app: test-dev
+    spec:
+      containers:
+      - name: app
+        image: python:3.8.11-alpine3.14
+        command: ["/bin/sh", "-c"]
+        args:
+         - apk add g++ wget;
+           pip install --upgrade pip;
+           pip install kafka-python;
+           pip install python-binance;
+           wget http://10.152.183.240:9000/repo/wbs-kafka-test.py;
+           python wbs-kafka-test.py;
