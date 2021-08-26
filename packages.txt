@@ -5,3 +5,9 @@ pip install modin[all]
 pip install s3fs
 pip install websocket-client
 pip install requests
+pip install PyGithub
+pip install git+https://github.com/couler-proj/couler
+pip install argo-workflows
+pip install confluent-kafka
+pip install fastavro
+pip install avro

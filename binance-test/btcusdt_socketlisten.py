@@ -34,6 +34,7 @@ def main():
     def handle_socket_message(msg):
 
         producer.send('test', {symbol : msg})
+        print(type(msg))
 
     twm.start_kline_socket(callback=handle_socket_message, symbol=symbol)
 
