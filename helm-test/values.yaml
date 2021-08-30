@@ -5,12 +5,13 @@
 replicaCount: 1
 
 image:
-  repository: python
-  registry: docker.io
+  repository: wbslisten
+  registry: localhost:32000
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 3.8.11-alpine3.14
+  tag: v0.1
 
+symbol: BTCUSDT
 
 imagePullSecrets: []
 nameOverride: ""

@@ -30,21 +30,14 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
-            - apk add g++ librdkafka-dev wget;
-              pip install --upgrade pip;
-              pip install fastavro;
-              pip install avro;
-              pip install confluent-kafka;
-              pip install python-binance;
-              pip install s3fs;
-              wget http://10.152.183.209:9000/repo/binance/test/helm-test.py;
+            - wget http://10.152.183.209:9000/repo/binance/test/helm-test.py;
               wget http://10.152.183.209:9000/repo/binance/test/schema.txt;
               wget http://10.152.183.209:9000/repo/binance/test/s3_params.txt;
-              python helm-test.py;
+              python helm-test.py -s {{ .Values.symbol }};
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
