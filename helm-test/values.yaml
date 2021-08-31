@@ -5,11 +5,11 @@
 replicaCount: 1
 
 image:
-  repository: wbslisten
-  registry: localhost:32000
+  repository: wbslisten_base
+  registry: 10.152.183.174:5000
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.1
+  tag: v0.2
 
 symbol: BTCUSDT
 
