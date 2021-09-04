@@ -34,7 +34,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args:
-            - git clone https://utkuaslan85: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@github.com/utkuaslan85/binance-data-pipe.git;
+            - git clone https://utkuaslan85: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@github.com/utkuaslan85/binance-data-pipe.git;
               cd  binance-data-pipe/binance-test/;
               python helm-test.py -s {{ .Values.symbol }};
           resources:
