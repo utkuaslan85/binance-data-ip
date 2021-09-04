@@ -56,7 +56,7 @@ def main(args):
 
     producer = SerializingProducer(producer_conf)
 
-    twm = ThreadedWebsocketManager(api_key=api_key, api_secret=api_secret)
+    twm = ThreadedWebsocketManager()
 
     twm.start()
 
