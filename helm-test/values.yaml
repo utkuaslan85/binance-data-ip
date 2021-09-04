@@ -13,6 +13,8 @@ image:
 
 symbol: BTCUSDT
 
+Github_token: ""
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
