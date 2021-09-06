@@ -22,7 +22,7 @@ api_secret = cred["SECRET_KEY"]
 client = Client(api_key=api_key, api_secret=api_secret)
 
 
-start_date = datetime.datetime.strptime('1 SEP 2021', '%d %b %Y')
+start_date = datetime.datetime.strptime('1 SEP 2016', '%d %b %Y')
 today = datetime.datetime.today()
 
 def binanceBarExtractor(symbol):
