@@ -1,7 +1,8 @@
-import modin.pandas as pd
+import pandas as pd
 from binance.client import Client
 import datetime
 from s3fs.core import S3FileSystem
+import json
 
 
 # s3fs client
@@ -10,18 +11,18 @@ s3 = S3FileSystem(
     key='access-key',
     secret='secret-key',
     use_ssl=False,
-    client_kwargs={'endpoint_url': 'http://10.152.183.240:9000'})
+    client_kwargs={'endpoint_url': 'http://10.152.183.209:9000'})
 
 
 # Binance client
-with s3.open('repo/binance/binance_cred.txt', 'r') as f:
+with s3.open('repo/params/binance_cred.txt', 'r') as f:
     cred = json.loads(f.read())
 api_key = cred["API_KEY"]
 api_secret = cred["SECRET_KEY"]
 client = Client(api_key=api_key, api_secret=api_secret)
 
 
-start_date = datetime.datetime.strptime('1 Jan 2016', '%d %b %Y')
+start_date = datetime.datetime.strptime('1 SEP 2021', '%d %b %Y')
 today = datetime.datetime.today()
 
 def binanceBarExtractor(symbol):
