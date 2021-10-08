@@ -12,6 +12,7 @@ image:
   tag: 3.8.11-alpine3.14
 
 symbol: BTCUSDT
+topic: test
 
 Github_token: ""
 

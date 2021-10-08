@@ -36,7 +36,7 @@ spec:
           args:
             - git clone https://utkuaslan85:{{ .Values.Github_token }}@github.com/utkuaslan85/binance-data-pipe.git;
               cd  binance-data-pipe/binance-test/;
-              python helm-test.py -s {{ .Values.symbol }};
+              python helm-test.py -s {{ .Values.symbol }} -t {{ .Values.topic}};
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
