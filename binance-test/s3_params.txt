@@ -1,1 +1,1 @@
-{"access-key" : "access-key", "secret-key" : "secret-key", "endpoint_url" : "http://10.152.183.209:9000", "cred_path" : "repo/params/binance_cred.txt"}
+{"access-key" : "access-key", "secret-key" : "secret-key", "endpoint_url" : "http://10.152.183.111:9000", "cred_path" : "repo/binance_cred.txt"}
