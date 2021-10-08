@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: wbslisten_base
-  registry: 10.152.183.174:5000
+  registry: localhost:32000
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: v0.2
