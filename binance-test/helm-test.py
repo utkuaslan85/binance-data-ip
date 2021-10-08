@@ -64,7 +64,7 @@ def main(args):
 
         producer.produce(topic=topic, key=symbol, value=msg)
         producer.flush()
-
+        
     twm.start_kline_socket(callback=handle_socket_message, symbol=symbol)
 
     twm.join()
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     parser.add_argument('-b', dest="bootstrap_servers",
                         default="kafka.kafka.svc.cluster.local:9092", help="Bootstrap servers")
     parser.add_argument('-r', dest="schema_registry",
-                        default="http://10.152.183.68:8085", help="Schema registry url")
+                        default="http://schema-registry.kafka.svc.cluster.local:8085", help="Schema registry url")
     parser.add_argument('-t', dest="topic", default="test", help="Topic")
     parser.add_argument('-s', dest="symbol", default="BTCUSDT", help="Symbol")
 
