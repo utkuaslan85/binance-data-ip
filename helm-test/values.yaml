@@ -5,11 +5,11 @@
 replicaCount: 1
 
 image:
-  repository: wbslisten_base
+  repository: python
   registry: localhost:32000
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.2
+  tag: 3.8.11-alpine3.14
 
 symbol: BTCUSDT
 
