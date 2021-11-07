@@ -23,7 +23,7 @@ def main(args):
 
     def handle_socket_message(msg):
 
-        producer.produce(topic=topic, key=symbol, value=msg)
+        producer.produce(topic=topic, key=symbol, value=str(msg))
         producer.flush()
         
     twm.start_kline_socket(callback=handle_socket_message, symbol=symbol)
