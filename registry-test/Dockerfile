@@ -1,4 +1,4 @@
-FROM python:3.8.11-alpine3.14
+FROM python:3.10.2-alpine3.14
 RUN apk update && \
     apk add \
     g++ \
