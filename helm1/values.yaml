@@ -14,7 +14,6 @@ image:
 symbol: BTCUSDT
 topic: test
 
-Github_token: ""
 
 imagePullSecrets: []
 nameOverride: ""

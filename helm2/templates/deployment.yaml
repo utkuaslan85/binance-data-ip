@@ -35,8 +35,8 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - git clone https://github.com/utkuaslan85/binance-data-pipe.git;
-              cd  binance-data-pipe/binance-test2/;
-              python helm-test.py -s {{ .Values.symbol }} -t {{ .Values.topic}};
+              cd  binance-data-pipe/binance2/;
+              python producer.py -s {{ .Values.symbol }} -t {{ .Values.topic}};
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: python
-  registry: localhost:32000
+  registry: 10.109.120.111:5000
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: 3.8.11-alpine3.14
@@ -14,7 +14,6 @@ image:
 symbol: BTCUSDT
 topic: test
 
-Github_token: ""
 
 imagePullSecrets: []
 nameOverride: ""

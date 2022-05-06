@@ -32,7 +32,7 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="SerializingProducer Example")
+    parser = argparse.ArgumentParser(description="String Serializing Producer")
     parser.add_argument('-b', dest="bootstrap_servers",
                         default="kafka.kafka.svc.cluster.local:9092", help="Bootstrap servers")
     parser.add_argument('-r', dest="schema_registry",

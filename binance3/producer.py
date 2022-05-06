@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
-import json
 import argparse
-from s3fs.core import S3FileSystem
 from binance import ThreadedWebsocketManager
 from confluent_kafka import SerializingProducer
 from confluent_kafka.serialization import StringSerializer
@@ -13,31 +11,30 @@ from confluent_kafka.schema_registry.avro import AvroSerializer
 with open('schema.txt', 'r') as f:
     schema_str = f.read()
 
+def flatten_json(nested_json):
+    """
+    Flatten json object with nested keys into a single level.
+        Args:
+            nested_json: A nested json object.
+        Returns:
+            The flattened json object if successful, None otherwise.
+    """
+    out = {}
 
-# s3 params
-with open('s3_params.txt', 'r') as f:
-    s3_params = json.loads(f.read())
-s3_key = s3_params['access-key']
-s3_secret = s3_params['secret-key']
-s3_url = s3_params['endpoint_url']
-s3_binance_cred_path = s3_params['cred_path']
+    def flatten(x, name=''):
+        if type(x) is dict:
+            for a in x:
+                flatten(x[a], name + a + '_')
+        elif type(x) is list:
+            i = 0
+            for a in x:
+                flatten(a, name + str(i) + '_')
+                i += 1
+        else:
+            out[name[:-1]] = x
 
-
-# s3fs client
-s3 = S3FileSystem(
-     anon=False,
-     key=s3_key,
-     secret=s3_secret,
-     use_ssl=False,
-     client_kwargs={'endpoint_url': s3_url})
-
-
-# Binance client
-with s3.open(s3_binance_cred_path, 'r') as f:
-    cred = json.loads(f.read())
-api_key = cred["API_KEY"]
-api_secret = cred["SECRET_KEY"]
-
+    flatten(nested_json)
+    return out
 
 def main(args):
 
@@ -62,7 +59,9 @@ def main(args):
 
     def handle_socket_message(msg):
 
-        producer.produce(topic=topic, key=symbol, value=msg)
+        flatten = flatten_json(msg)
+        
+        producer.produce(topic=topic, key=symbol, value=flatten)
         producer.flush()
         
     twm.start_kline_socket(callback=handle_socket_message, symbol=symbol)
@@ -71,7 +70,7 @@ def main(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="SerializingProducer Example")
+    parser = argparse.ArgumentParser(description="Avro flattened Serializing Producer")
     parser.add_argument('-b', dest="bootstrap_servers",
                         default="kafka.kafka.svc.cluster.local:9092", help="Bootstrap servers")
     parser.add_argument('-r', dest="schema_registry",
