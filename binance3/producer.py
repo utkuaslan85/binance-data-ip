@@ -96,6 +96,6 @@ if __name__ == "__main__":
     parser.add_argument('-r', dest="schema_registry",
                         default="http://schema-registry.kafka.svc.cluster.local:8085", help="Schema registry url")
     parser.add_argument('-t', dest="topic", default="test", help="Topic")
-    parser.add_argument('-s', dest="symbols", default=["BTCUSDT"], help="Symbol")
+    parser.add_argument('-s', dest="symbols", nargs'*', default=["BTCUSDT"], help="Symbol")
 
     main(parser.parse_args())
