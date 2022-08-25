@@ -52,11 +52,30 @@ def main(args):
     def handle_socket_message(msg):
 
         flatten = flatten_json(msg)
-        del flatten['e']
-        flatten['k_qQ'] = flatten['k_Q']
-        flatten['k_vV'] = flatten['k_V']
-        flatten['k_lL'] = flatten['k_L']
-        flatten['k_tT'] = flatten['k_T']
+        flatten_keys = list(flatten.keys())
+        
+        flatten['event_type'] = flatten['e']
+        flatten['event_time'] = flatten['E']
+        flatten['event_symbol'] = flatten['s']
+        flatten['kline_start_time'] = flatten['k_t']
+        flatten['kline_end_time'] = flatten['k_T']
+        flatten['kline_symbol'] = flatten['k_s']
+        flatten['kline_interval'] = flatten['k_i']
+        flatten['first_trade_id'] = flatten['k_f']
+        flatten['last_trade_id'] = flatten['k_L']
+        flatten['open_price'] = flatten['k_o']
+        flatten['close_price'] = flatten['k_c']
+        flatten['high_price'] = flatten['k_h']
+        flatten['low_price'] = flatten['k_l']
+        flatten['volume'] = flatten['k_v']
+        flatten['number_of_trades'] = flatten['k_n']
+        flatten['check_if_final_bar'] = flatten['k_x']
+        flatten['quote_volume'] = flatten['k_q']
+        flatten['active_buy_volume'] = flatten['k_V']
+        flatten['active_buy_quote_volume'] = flatten['k_Q']
+        
+        for keys in flatten_keys:
+            del flatten[keys]
         
         producer.produce(topic=topic, key=symbol, value=flatten)
         producer.flush()
