@@ -39,32 +39,33 @@ def flatten_json(nested_json):
 def main(args):
 
     topic = args.topic
-    symbol = args.symbol
+    symbols = args.symbols
 
     schema_registry_conf = {'url': args.schema_registry}
-
     schema_registry_client = SchemaRegistryClient(schema_registry_conf)
-
     avro_serializer = AvroSerializer(schema_registry_client, schema_str)
-
     producer_conf = {'bootstrap.servers': args.bootstrap_servers,
                      'key.serializer': StringSerializer('utf_8'),
                      'value.serializer': avro_serializer}
-
     producer = SerializingProducer(producer_conf)
-
-    twm = ThreadedWebsocketManager()
-
-    twm.start()
 
     def handle_socket_message(msg):
 
         flatten = flatten_json(msg)
+        del flatten['e']
+        flatten['k_qQ'] = flatten['k_Q']
+        flatten['k_vV'] = flatten['k_V']
+        flatten['k_lL'] = flatten['k_L']
+        flatten['k_tT'] = flatten['k_T']
         
         producer.produce(topic=topic, key=symbol, value=flatten)
         producer.flush()
-        
-    twm.start_kline_socket(callback=handle_socket_message, symbol=symbol)
+
+    twm = ThreadedWebsocketManager()
+    twm.start()
+    
+    for symbol in symbols:
+        twm.start_kline_socket(callback=handle_socket_message, symbol=symbol)
 
     twm.join()
 
@@ -76,6 +77,6 @@ if __name__ == "__main__":
     parser.add_argument('-r', dest="schema_registry",
                         default="http://schema-registry.kafka.svc.cluster.local:8085", help="Schema registry url")
     parser.add_argument('-t', dest="topic", default="test", help="Topic")
-    parser.add_argument('-s', dest="symbol", default="BTCUSDT", help="Symbol")
+    parser.add_argument('-s', dest="symbols", default=["BTCUSDT"], help="Symbol")
 
     main(parser.parse_args())
